@@ -13,8 +13,8 @@ let score = 0, time = 30, active = false, current = -1, popTimer, clockTimer, ac
 let best = Number(localStorage.getItem('roommateBugBest') || 0);
 bestEl.textContent = String(best).padStart(2, '0');
 
-const SMUG_SPRITE = 'assets/roommate-smug.png';
-const CRY_SPRITE = 'assets/roommate-cry.png';
+const SMUG_SPRITE = 'assets/roommate-smug.jpg?v=2';
+const CRY_SPRITE = 'assets/roommate-cry.jpg?v=2';
 
 // Preload both states so a hit swaps instantly instead of flashing an empty image.
 [SMUG_SPRITE, CRY_SPRITE].forEach(src => { const image = new Image(); image.src = src; });
@@ -27,6 +27,9 @@ for (let i = 0; i < 9; i += 1) {
   const bug = document.createElement('img');
   bug.className = 'bug';
   bug.src = SMUG_SPRITE;
+  bug.width = 600;
+  bug.height = 600;
+  bug.decoding = 'async';
   bug.alt = '正在得意的室友虫';
   hole.appendChild(bug);
   hole.addEventListener('click', () => catchBug(i, hole));
