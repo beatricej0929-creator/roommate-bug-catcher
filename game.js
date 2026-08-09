@@ -13,11 +13,38 @@ let score = 0, time = 30, active = false, current = -1, popTimer, clockTimer, ac
 let best = Number(localStorage.getItem('roommateBugBest') || 0);
 bestEl.textContent = String(best).padStart(2, '0');
 
-const SMUG_SPRITE = 'assets/roommate-smug.jpg?v=2';
-const CRY_SPRITE = 'assets/roommate-cry.jpg?v=2';
+const SMUG_SPRITE = 'assets/roommate-smug.jpg?v=3';
+const CRY_SPRITE = 'assets/roommate-cry.jpg?v=3';
+const ACHIEVEMENT_SPRITE = 'assets/achievement-birthday.jpg?v=3';
+let assetsReady = false;
 
-// Preload both states so a hit swaps instantly instead of flashing an empty image.
-[SMUG_SPRITE, CRY_SPRITE].forEach(src => { const image = new Image(); image.src = src; });
+function loadAndDecode(src) {
+  return new Promise((resolve, reject) => {
+    const image = new Image();
+    image.onload = async () => {
+      try {
+        if (image.decode) await image.decode();
+        resolve();
+      } catch (error) {
+        reject(error);
+      }
+    };
+    image.onerror = reject;
+    image.src = src;
+  });
+}
+
+Promise.all([SMUG_SPRITE, CRY_SPRITE, ACHIEVEMENT_SPRITE].map(loadAndDecode))
+  .then(() => {
+    assetsReady = true;
+    startBtn.disabled = false;
+    startBtn.classList.remove('assets-loading');
+    statusEl.textContent = '素材就绪，等待室友出没';
+  })
+  .catch(() => {
+    startBtn.disabled = true;
+    statusEl.textContent = '图片未能加载，请刷新页面重试';
+  });
 
 for (let i = 0; i < 9; i += 1) {
   const hole = document.createElement('button');
@@ -96,6 +123,7 @@ function unlockAchievement() {
 }
 
 function startGame() {
+  if (!assetsReady) return;
   clearTimeout(popTimer); clearInterval(clockTimer);
   score = 0; time = 30; active = true; current = -1; achievementUnlocked = false;
   clearTimeout(achievementTimer);
