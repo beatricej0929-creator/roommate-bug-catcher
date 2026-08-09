@@ -1,0 +1,4 @@
+# Never upload the user's original private photo.
+assets/roommate-original.jpg
+
+.DS_Store

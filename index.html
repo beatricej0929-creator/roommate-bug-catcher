@@ -1,0 +1,65 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#f5c84c">
+  <title>室友捉虫办</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <main class="shell">
+    <header class="masthead">
+      <div>
+        <p class="eyebrow">DORMITORY ANOMALY CONTROL UNIT</p>
+        <h1>室友捉虫办</h1>
+        <p class="subtitle">经观察，该室友会在不该出现的地方随机出现。</p>
+      </div>
+      <button id="soundBtn" class="icon-btn" aria-label="切换音效" title="切换音效">有声</button>
+    </header>
+
+    <section class="dashboard" aria-label="游戏数据">
+      <div class="metric"><span>已捕获</span><strong id="score">00</strong></div>
+      <div class="metric danger"><span>剩余时间</span><strong><b id="time">30</b>s</strong></div>
+      <div class="metric"><span>最高纪录</span><strong id="best">00</strong></div>
+      <div class="status" id="status">等待室友出没</div>
+    </section>
+
+    <section class="game-card">
+      <div class="tape">宿舍内部文件 · 请勿外传</div>
+      <div id="board" class="board" aria-label="九宫格游戏区域"></div>
+      <div class="scanline" aria-hidden="true"></div>
+    </section>
+
+    <section class="controls">
+      <button id="startBtn" class="primary">开始围捕</button>
+      <p>看到室友就点她。点错一次，宿舍信誉值 −1。</p>
+    </section>
+
+    <section class="briefing">
+      <div class="stamp">机密</div>
+      <div><span>目标特征</span><p>眼镜、白色外套、行动轨迹不可预测。</p></div>
+      <div><span>注意事项</span><p>本项目纯属朋友间整活，请在本人知情且同意的范围内使用照片。</p></div>
+    </section>
+  </main>
+
+  <aside id="achievement" class="achievement" aria-live="assertive" aria-hidden="true">
+    <img src="assets/achievement-birthday.png" alt="室友捧着插有 88 蜡烛的生日蛋糕">
+    <div>
+      <p>隐藏成就已解锁</p>
+      <h2>八月秘密档案</h2>
+      <span>恭喜你知道了室友冲的生日是 8 月 8 号！</span>
+    </div>
+  </aside>
+
+  <dialog id="resultDialog">
+    <div class="result-art"><img src="assets/roommate-smug.png" alt="得意的室友虫角色"></div>
+    <p class="eyebrow">本次围捕报告</p>
+    <h2 id="resultTitle">捕获完成</h2>
+    <p id="resultText"></p>
+    <button id="againBtn" class="primary">再抓一次</button>
+  </dialog>
+
+  <script src="game.js"></script>
+</body>
+</html>
